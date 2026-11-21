@@ -28,14 +28,14 @@ jobs:
   semgrep:
     name: Semgrep SAST
     runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Run Semgrep
-        uses: semgrep/semgrep-action@v1
-        with:
-          config: p/default
+        run: semgrep scan --config p/default --error .
 
   trivy:
     name: Trivy Filesystem Scan
